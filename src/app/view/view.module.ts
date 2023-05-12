@@ -1,17 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
-import { ViewRoutingModule } from './view-routing.module';
-import { ViewComponent } from './view.component';
-
+import { ViewRoutingModule } from "./view-routing.module";
+import { ViewComponent } from "./view.component";
 
 @NgModule({
-  declarations: [
-    ViewComponent
-  ],
-  imports: [
-    CommonModule,
-    ViewRoutingModule
-  ]
+  declarations: [ViewComponent],
+  imports: [CommonModule, ViewRoutingModule],
 })
-export class ViewModule { }
+export class ViewModule {}

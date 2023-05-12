@@ -1,0 +1,49 @@
+.filter {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 20px;
+
+	&__assignee {
+		display: flex;
+
+		&__item {
+			background-color: orange;
+			width: 36px;
+			height: 36px;
+			border-radius: 100%;
+			text-align: center;
+			align-items: center;
+			display: flex;
+			justify-content: center;
+			border: 1px solid white;
+			cursor: pointer;
+			color: white;
+
+			&:hover {
+				transform: scale(1.1);
+			}
+		}
+
+		.selected {
+			border: 2px solid green;
+		}
+	}
+
+	&__clear {
+		display: flex;
+		gap: 20px;
+		.divider {
+			width: 1px;
+			border-left: 1px solid #ccc;
+		}
+		button {
+			background-color: #F4F5F7;
+			color: black;
+
+			&:hover {
+				background-color: #EBECF0;
+			}
+		}
+	}
+}

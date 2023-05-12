@@ -1,0 +1,9 @@
+.container {
+	gap: 20px;
+	height: 100%;
+
+	&__content {
+		width: 100%;
+		margin: 20px;
+	}
+}

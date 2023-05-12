@@ -10,3 +10,129 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-form-field-wrapper {
     padding-bottom: 0 !important;
 }
+
+.flex {
+    display: flex;
+    align-items: flex-start;
+    &-core {
+        display: flex;
+    }
+    &-column {
+        flex-direction: column;
+    }
+    &-wrap {
+        flex-wrap: wrap;
+    }
+    &-center {
+        justify-content: center;
+    }
+    &-start {
+        justify-content: flex-start;
+    }
+    &-end {
+        justify-content: flex-end;
+    }
+    &-space-between {
+        justify-content: space-between;
+    }
+    &-space-evenly {
+        justify-content: space-evenly;
+    }
+    &-space-around {
+        justify-content: space-around;
+    }
+    &-middle {
+        align-items: center;
+    }
+    &-stretch {
+        align-items: stretch;
+    }
+    &-baseline {
+        align-items: baseline;
+    }
+    &-align-items-end {
+        align-items: flex-end;
+    }
+    &-align-items-center {
+        align-items: center;
+    }
+    &-align-content-start {
+        align-content: flex-start;
+    }
+    &-align-content-end {
+        align-content: flex-end;
+    }
+    &-align-content-center {
+        align-content: center;
+    }
+    &-align-content-stretch {
+        align-content: stretch;
+    }
+    &-align-content-space-between {
+        align-content: space-between;
+    }
+    &-align-content-space-around {
+        align-content: space-around;
+    }
+    &-equal-width {
+        flex-grow: 1;
+        flex-basis: 0;
+    }
+}
+
+app-left-nav {
+	height: 100%;
+}
+
+.w-full {
+	width: 100%;
+}
+
+.h-full {
+	height: 100%;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+	padding: 0.5em 0;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-label {
+	top: 1.44375em;
+}
+
+.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+	transform: translateY(-1.29375em) scale(0.75);
+}
+
+.mat-form-field-appearance-outline .mat-form-field-wrapper {
+	margin: 0 !important;
+}
+
+.circle {
+	border-radius: 100%;
+	text-align: center;
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	border: 1px solid white;
+	color: white;
+
+	&-small {
+		width: 30px;
+		height: 30px;
+	}
+
+	&-medium {
+		width: 36px;
+		height: 36px;
+	}
+}
+
+.p-l-sm {
+	padding-left: 10px;
+}
+
+.mat-form-field-subscript-wrapper {
+	padding: 15px 0!important;
+}
+

@@ -13,10 +13,9 @@ export class BackendService {
 
   lastId = 1;
 
-  private findTaskById = id =>
-    this.storedTasks.find(task => task.id === +id);
+  private findTaskById = (id) => this.storedTasks.find((task) => task.id === +id);
 
-  private findUserById = id => this.storedUsers.find(user => user.id === +id);
+  private findUserById = (id) => this.storedUsers.find((user) => user.id === +id);
 
   tasks() {
     return of(this.storedTasks).pipe(delay(randomDelay()));
@@ -34,12 +33,13 @@ export class BackendService {
     return of(this.findUserById(id)).pipe(delay(randomDelay()));
   }
 
-  newTask(payload: { description: string }) {
+  newTask(payload: { name: string; description: string }) {
     const newTask: Task = {
       id: ++this.lastId,
+      name: payload.name,
       description: payload.description,
       assigneeId: null,
-      completed: false
+      completed: false,
     };
 
     this.storedTasks = this.storedTasks.concat(newTask);
@@ -64,9 +64,7 @@ export class BackendService {
 
     const updatedTask = { ...foundTask, ...updates };
 
-    this.storedTasks = this.storedTasks.map(t =>
-      t.id === taskId ? updatedTask : t
-    );
+    this.storedTasks = this.storedTasks.map((t) => (t.id === taskId ? updatedTask : t));
 
     return of(updatedTask).pipe(delay(randomDelay()));
   }

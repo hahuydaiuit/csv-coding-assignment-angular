@@ -22,7 +22,7 @@
                 color: white;
 
                 &:hover {
-                    opacity: 0.9;
+                    transform: scale(1.1);
                 }
             }
         }
@@ -37,6 +37,10 @@
             button {
                 background-color: #F4F5F7;
                 color: black;
+
+				&:hover {
+					background-color: #EBECF0;
+				}
             }
         }
     }
@@ -55,48 +59,6 @@
 
             &__status {
                 padding: 15px;
-            }
-            &__list {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-                &__issue {
-                    background-color: white;
-                    margin: 0 10px;
-                    padding: 10px;
-                    cursor: pointer;
-                    &:hover {
-                        background-color: #EBECF0;
-                    }
-                    &__name {
-                        padding-bottom: 10px;
-                        font-size: 16px;
-                    }
-                    &__assignee {
-                        display: flex;
-                        align-items: center;
-
-                        &__logo {
-                            background-color: orange;
-                            width: 30px;
-                            height: 30px;
-                            border-radius: 100%;
-                            text-align: center;
-                            align-items: center;
-                            display: flex;
-                            justify-content: center;
-                            border: 1px solid white;
-                            color: white;
-
-                            &:hover {
-                                opacity: 0.9;
-                            }
-                        }
-                        &__name {
-                            padding-left: 10px;
-                        }
-                    }
-                }
             }
         }
     }
