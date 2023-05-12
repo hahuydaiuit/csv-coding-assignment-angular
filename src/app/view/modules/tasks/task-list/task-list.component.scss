@@ -1,0 +1,103 @@
+.task-board {
+    &__filter {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+
+        &__assignee {
+            display: flex;
+
+            &__item {
+                background-color: orange;
+                width: 36px;
+                height: 36px;
+                border-radius: 100%;
+                text-align: center;
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                border: 1px solid white;
+                cursor: pointer;
+                color: white;
+
+                &:hover {
+                    opacity: 0.9;
+                }
+            }
+        }
+
+        &__clear {
+            display: flex;
+            gap: 20px;
+            .divider {
+                width: 1px;
+                border-left: 1px solid #ccc;
+            }
+            button {
+                background-color: #F4F5F7;
+                color: black;
+            }
+        }
+    }
+
+    &__content {
+        display: flex;
+        margin-top: 20px;
+        &__item {
+            width: calc(25% - 8px);
+            min-height: 400px;
+            min-width: 200px;
+            display: flex;
+            flex-direction: column;
+            background-color: #F4F5F7;
+            margin-right: 8px;
+
+            &__status {
+                padding: 15px;
+            }
+            &__list {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                &__issue {
+                    background-color: white;
+                    margin: 0 10px;
+                    padding: 10px;
+                    cursor: pointer;
+                    &:hover {
+                        background-color: #EBECF0;
+                    }
+                    &__name {
+                        padding-bottom: 10px;
+                        font-size: 16px;
+                    }
+                    &__assignee {
+                        display: flex;
+                        align-items: center;
+
+                        &__logo {
+                            background-color: orange;
+                            width: 30px;
+                            height: 30px;
+                            border-radius: 100%;
+                            text-align: center;
+                            align-items: center;
+                            display: flex;
+                            justify-content: center;
+                            border: 1px solid white;
+                            color: white;
+
+                            &:hover {
+                                opacity: 0.9;
+                            }
+                        }
+                        &__name {
+                            padding-left: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

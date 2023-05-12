@@ -1,50 +1,15 @@
 import { Injectable } from "@angular/core";
 import { Observable, of, throwError } from "rxjs";
-import { delay, tap } from "rxjs/operators";
-
-/**
- * This service acts as a mock backend.
- *
- * You are free to modify it as you see.
- */
-
-export type User = {
-  id: number;
-  name: string;
-};
-
-export type Task = {
-  id: number;
-  description: string;
-  assigneeId: number;
-  completed: boolean;
-};
-
-function randomDelay() {
-  return Math.random() * 1000;
-}
+import { delay } from "rxjs/operators";
+import { Task, User } from "../models";
+import { randomDelay } from "@app/shared/utils";
+import { storedTasks, storedUsers } from "../mocks";
 
 @Injectable()
 export class BackendService {
-  storedTasks: Task[] = [
-    {
-      id: 0,
-      description: "Install a monitor arm",
-      assigneeId: 111,
-      completed: false
-    },
-    {
-      id: 1,
-      description: "Move the desk to the new location",
-      assigneeId: 111,
-      completed: false
-    }
-  ];
+  storedTasks = storedTasks;
 
-  storedUsers: User[] = [
-    { id: 111, name: "Mike" },
-    { id: 222, name: "James" }
-  ];
+  storedUsers = storedUsers;
 
   lastId = 1;
 

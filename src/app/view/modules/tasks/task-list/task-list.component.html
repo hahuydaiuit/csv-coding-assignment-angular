@@ -1,0 +1,85 @@
+<h2>Tasks</h2>
+
+<ul>
+  <li *ngFor="let t of tasks">
+    Task: {{t.id}}, {{t.description}}
+  </li>
+</ul>
+
+<div class="task-board">
+    <div class="task-board__title">
+        <h2>Tasks</h2>
+    </div>
+
+    <div class="task-board__filter">
+        <div class="task-board__filter__search">
+            <mat-form-field appearance="outline">
+                <mat-icon matPrefix>search</mat-icon>
+                <input matInput type="text">
+              </mat-form-field>
+        </div>
+        <div class="task-board__filter__assignee">
+            <div *ngFor="let user of users" class="task-board__filter__assignee__item" [ngStyle]="{'background-color': user.bgColor}">
+                <span>{{ user.logo }}</span>
+            </div>
+        </div>
+
+        <div class="task-board__filter__clear">
+            <div class="divider"></div>
+            <button mat-flat-button>Clear All</button>
+        </div>
+    </div>
+
+    <div class="task-board__content">
+        <div class="task-board__content__item">
+            <div class="task-board__content__item__status">TODO</div>
+            <div class="task-board__content__item__list">
+                <div class="task-board__content__item__list__issue">
+                    <div class="task-board__content__item__list__issue__name">
+                        Move the desk to the new location
+                    </div>
+                    <div class="task-board__content__item__list__issue__assignee">
+                        <div class="task-board__content__item__list__issue__assignee__logo">
+                            DH
+                        </div>
+                        <div class="task-board__content__item__list__issue__assignee__name">
+                            ABC-1234
+                        </div>
+                    </div>
+                </div>
+
+                <div class="task-board__content__item__list__issue">
+                    <div class="task-board__content__item__list__issue__name">
+                        Move the desk to the new location 3232 332
+                    </div>
+                    <div class="task-board__content__item__list__issue__assignee">
+                        <div class="task-board__content__item__list__issue__assignee__logo">
+                            AH
+                        </div>
+                        <div class="task-board__content__item__list__issue__assignee__name">
+                            ABC-1235
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="task-board__content__item">
+            <div class="task-board__content__item__status">COMPLETED</div>
+            <div class="task-board__content__item__list">
+                <div class="task-board__content__item__list__issue">
+                    <div class="task-board__content__item__list__issue__name">
+                        Move the desk to the new location
+                    </div>
+                    <div class="task-board__content__item__list__issue__assignee">
+                        <div class="task-board__content__item__list__issue__assignee__logo">
+                            DH
+                        </div>
+                        <div class="task-board__content__item__list__issue__assignee__name">
+                            ABC-1234
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
