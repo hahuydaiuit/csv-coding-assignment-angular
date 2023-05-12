@@ -4,11 +4,13 @@ import { TaskItemComponent } from "./components/task-item/task-item.component";
 import { FilterComponent } from "./components/filter/filter.component";
 import { MaterialModule } from "./material.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { AddNewTaskDialogComponent } from "./components/add-new-task-dialog/add-new-task-dialog.component";
+import { TaskDialogComponent } from "./components/task-dialog/task-dialog.component";
+import { SnackBarService } from "./services/snack-bar/snack-bar.service";
 
 @NgModule({
-  declarations: [TaskItemComponent, FilterComponent, AddNewTaskDialogComponent],
+  declarations: [TaskItemComponent, FilterComponent, TaskDialogComponent],
   imports: [CommonModule, ReactiveFormsModule, FormsModule, MaterialModule],
-  exports: [TaskItemComponent, FilterComponent, AddNewTaskDialogComponent],
+  exports: [TaskItemComponent, FilterComponent, TaskDialogComponent],
+  providers: [SnackBarService]
 })
 export class SharedModule {}

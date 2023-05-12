@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
-import { RequestService } from "@app/shared/services";
-import { Observable, of } from "rxjs";
+import { LoadingService, RequestService } from "@app/shared/services";
+import { Observable, of, throwError } from "rxjs";
 import { TASK_API } from "./task.api";
 import { IParams, Task, User } from "../models";
 import { storedTasks, storedUsers } from "../mocks";
-import { delay, map } from "rxjs/operators";
+import { delay, map, finalize  } from "rxjs/operators";
 import { randomDelay } from "@app/shared/utils";
 
 @Injectable({
@@ -15,7 +15,11 @@ export class TasksService {
   storedUsers = storedUsers;
   lastId = 2;
 
-  constructor(private requestService: RequestService) {}
+  constructor(private requestService: RequestService, public loadingService: LoadingService) {}
+
+  private findTaskById = (id) => this.storedTasks.find((task) => task.id === +id);
+
+  private findUserById = (id) => this.storedUsers.find((user) => user.id === +id);
 
   getAllTasks(params: IParams = null): Observable<Task[]> {
     let api = JSON.parse(JSON.stringify(TASK_API.GET_ALL_TASK));
@@ -48,11 +52,19 @@ export class TasksService {
   }
 
   getTaskDetail(taskId: number): Observable<Task> {
+    this.loadingService.start();
     let api = JSON.parse(JSON.stringify(TASK_API.GET_TASK_INFO));
     api.url += taskId;
     if (api.use_mock) {
+      const foundTask = this.findTaskById(taskId);
+
+      if (!foundTask) {
+        return throwError("task not found");
+      }
       return of(this.storedTasks)
-        .pipe(delay(randomDelay()))
+        .pipe(delay(randomDelay()), finalize(() => {
+          this.loadingService.complete();
+        }))
         .pipe(map((data) => data.find((task) => task.id === taskId)));
     }
 
@@ -60,9 +72,12 @@ export class TasksService {
   }
 
   getAllUsers(): Observable<User[]> {
+    this.loadingService.start();
     const api = JSON.parse(JSON.stringify(TASK_API.GET_ALL_USER));
     if (api.use_mock) {
-      return of(this.storedUsers).pipe(delay(randomDelay()));
+      return of(this.storedUsers).pipe(delay(randomDelay()), finalize(() => {
+        this.loadingService.complete();
+      }));
     }
     return this.requestService.action(api);
   }
@@ -84,5 +99,25 @@ export class TasksService {
     }
 
     return this.requestService.action(api, tasks);
+  }
+
+  updateTask(task: Task): Observable<Task> {
+    let api = JSON.parse(JSON.stringify(TASK_API.UPDATE_TASK));
+
+    if (api.use_mock) {
+      const foundTask = this.findTaskById(task.id);
+
+      if (!foundTask) {
+        return throwError(new Error("task not found"));
+      }
+
+      const updatedTask = { ...foundTask, ...task };
+
+      this.storedTasks = this.storedTasks.map((t) => (t.id === task.id ? updatedTask : t));
+
+      return of(updatedTask).pipe(delay(randomDelay()));
+    }
+
+    return this.requestService.action(api, task);
   }
 }

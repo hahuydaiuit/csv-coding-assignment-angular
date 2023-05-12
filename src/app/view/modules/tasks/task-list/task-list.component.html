@@ -1,30 +1,24 @@
-<!-- <h2>Tasks</h2>
-
-<ul>
-  <li *ngFor="let t of tasks">Task: {{ t.id }}, {{ t.description }}</li>
-</ul> -->
-
 <div class="task-board">
-  <div class="task-board__title">
-    <h2>Tasks</h2>
-  </div>
+	<div class="task-board__title">
+		<h2>Tasks</h2>
+	</div>
 
-  <div class="flex flex-middle flex-space-between">
-    <app-filter [users]="users" (search)="onSearch($event)"></app-filter>
-    <button mat-raised-button color="primary" aria-label="Add new task" (click)="addNewTask()">
-      <mat-icon>add</mat-icon>
-      Add new task
-    </button>
-  </div>
+	<div class="flex flex-middle flex-space-between">
+		<app-filter [users]="users" (search)="onSearch($event)"></app-filter>
+		<button mat-raised-button color="primary" aria-label="Add new task" (click)="addNewTask()">
+			<mat-icon>add</mat-icon>
+			Add new task
+		</button>
+	</div>
 
-  <div class="task-board__content">
-    <div class="task-board__content__item">
-      <div class="task-board__content__item__status">TODO</div>
-      <app-task-item [tasks]="taskWithStatus?.todo"></app-task-item>
-    </div>
-    <div class="task-board__content__item">
-      <div class="task-board__content__item__status">COMPLETED</div>
-      <app-task-item [tasks]="taskWithStatus?.completed"></app-task-item>
-    </div>
-  </div>
+	<div class="task-board__content">
+		<div class="task-board__content__item">
+			<div class="task-board__content__item__status">TODO</div>
+			<app-task-item [tasks]="taskWithStatus?.todo" (openDetail)="updateTask($event)"></app-task-item>
+		</div>
+		<div class="task-board__content__item">
+			<div class="task-board__content__item__status">COMPLETED</div>
+			<app-task-item [tasks]="taskWithStatus?.completed" (openDetail)="updateTask($event)"></app-task-item>
+		</div>
+	</div>
 </div>
