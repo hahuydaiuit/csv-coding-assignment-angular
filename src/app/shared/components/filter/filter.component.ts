@@ -49,7 +49,7 @@ export class FilterComponent implements OnInit {
 		this.searchFilter = {
 			name: '',
 			userId: [],
-			completed: null,
+			completed: [],
 		};
 		this.search.emit(this.searchFilter);
 	}
