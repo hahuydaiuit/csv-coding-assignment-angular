@@ -1,11 +1,11 @@
 <div class="task-item">
-  <div *ngFor="let task of tasks" class="task-item__issue" (click)="openTaskDetail(task)">
-    <div class="task-item__issue__name">
-      {{ task.name }}
-    </div>
-    <div class="task-item__issue__assignee">
-      <div class="task-item__issue__assignee__logo" [ngStyle]="{ 'background-color': task.bgColor }">{{ task.logo }}</div>
-      <div class="task-item__issue__assignee__name">{{ preFix }}{{ task.id }}</div>
-    </div>
-  </div>
+	<div *ngFor="let task of tasks" class="task-item__issue" (click)="openTaskDetail(task)">
+		<div class="task-item__issue__name">
+			{{ task.name }}
+		</div>
+		<div class="task-item__issue__assignee">
+			<div class="task-item__issue__assignee__logo" [ngStyle]="{ 'background-color': task.bgColor }">{{ task.logo }}</div>
+			<div class="task-item__issue__assignee__name">{{ preFix }}{{ task.id }}</div>
+		</div>
+	</div>
 </div>

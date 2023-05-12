@@ -1,27 +1,32 @@
 <div class="filter">
-  <div class="filter__search">
-    <mat-form-field appearance="outline">
-      <mat-icon matPrefix>search</mat-icon>
-      <input matInput type="text" [(ngModel)]="searchFilter.name" (ngModelChange)="onChangeName($event)" />
-    </mat-form-field>
-  </div>
-  <div class="filter__assignee">
-    <ng-container *ngFor="let user of users">
-      <div class="filter__assignee__item" [ngStyle]="{ 'background-color': user.bgColor }" (click)="selectAssignee(user.id)" [ngClass]="{ selected: selectedAssigneeID.includes(user.id) }">
-        <span>{{ user.logo }}</span>
-      </div>
-    </ng-container>
-  </div>
+	<div class="filter__search">
+		<mat-form-field appearance="outline">
+			<mat-icon matPrefix>search</mat-icon>
+			<input matInput type="text" [(ngModel)]="searchFilter.name" (ngModelChange)="onChangeName($event)" />
+		</mat-form-field>
+	</div>
+	<div class="filter__assignee">
+		<ng-container *ngFor="let user of users">
+			<div
+				class="filter__assignee__item"
+				[ngStyle]="{ 'background-color': user.bgColor }"
+				(click)="selectAssignee(user.id)"
+				[ngClass]="{ selected: selectedAssigneeID.includes(user.id) }"
+			>
+				<span>{{ user.logo }}</span>
+			</div>
+		</ng-container>
+	</div>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Status</mat-label>
-    <mat-select [(ngModel)]="searchFilter.completed" (ngModelChange)="onChangeStatus($event)" multiple>
-      <mat-option *ngFor="let status of taskStatus" [value]="status.value">{{ status.name }}</mat-option>
-    </mat-select>
-  </mat-form-field>
+	<mat-form-field appearance="outline">
+		<mat-label>Status</mat-label>
+		<mat-select [(ngModel)]="searchFilter.completed" (ngModelChange)="onChangeStatus($event)" multiple>
+			<mat-option *ngFor="let status of taskStatus" [value]="status.value">{{ status.name }}</mat-option>
+		</mat-select>
+	</mat-form-field>
 
-  <div class="filter__clear" *ngIf="searchFilter?.name.length > 0">
-    <div class="divider"></div>
-    <button mat-flat-button (click)="clearFilter()">Clear All</button>
-  </div>
+	<div class="filter__clear" *ngIf="searchFilter?.name.length > 0">
+		<div class="divider"></div>
+		<button mat-flat-button (click)="clearFilter()">Clear All</button>
+	</div>
 </div>
