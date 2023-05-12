@@ -12,7 +12,6 @@ import { SnackBarService } from '@app/shared/services/snack-bar/snack-bar.servic
 	selector: 'app-task-list',
 	templateUrl: './task-list.component.html',
 	styleUrls: ['./task-list.component.scss'],
-	providers: [],
 })
 export class TaskListComponent implements OnInit {
 	tasks: Task[];
@@ -101,6 +100,7 @@ export class TaskListComponent implements OnInit {
 		dialogRef.componentInstance.onSaveTaskEmitter.subscribe((data) => {
 			this.taskService.createNewTask(data).subscribe((task) => {
 				this.getAllTasks(this.currentParams);
+				this.snackBarService.openSnackBar(`Create new task ${task.name} successfully`, '', 'start', 'bottom', 'panel-sucess');
 				dialogRef.close();
 			});
 		});
