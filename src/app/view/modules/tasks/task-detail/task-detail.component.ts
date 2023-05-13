@@ -1,19 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TASK_ENUM_CODE, TASK_STATUS } from '../constants';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { forkJoin, of, throwError } from 'rxjs';
+import { Subscription, forkJoin, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TasksService } from '../services/tasks.service';
 import { Task, User } from '../models';
-import { SnackBarService } from '@app/shared/services/snack-bar/snack-bar.service';
+import { SnackBarService } from '@app/shared/services';
 
 @Component({
 	selector: 'app-task-detail',
 	templateUrl: './task-detail.component.html',
 	styleUrls: ['./task-detail.component.scss'],
 })
-export class TaskDetailComponent implements OnInit {
+export class TaskDetailComponent implements OnInit, OnDestroy {
+	subscription: Subscription = new Subscription();
 	taskStatus = TASK_STATUS;
 	taskForm!: UntypedFormGroup;
 	users: User[];
@@ -45,27 +46,29 @@ export class TaskDetailComponent implements OnInit {
 		const taskDetail = this.taskService.getTaskDetail(this.taskId).pipe(catchError((error) => throwError(error)));
 		const users = this.taskService.getAllUsers().pipe(catchError((error) => throwError(error)));
 
-		forkJoin([taskDetail, users]).subscribe(
-			(results) => {
-				this.taskDetail = results[0];
-				this.users = results[1];
+		this.subscription.add(
+			forkJoin([taskDetail, users]).subscribe(
+				(results) => {
+					this.taskDetail = results[0];
+					this.users = results[1];
 
-				this.assigneeSelected = this.users.find((user) => user.id === this.taskDetail.assigneeId);
-				this.remaningAssignee = this.users.filter((user) => user.id !== this.assigneeSelected.id);
-				this.statusSelected = this.taskStatus.find((status) => status.code === this.taskDetail.status).name;
+					this.assigneeSelected = this.users.find((user) => user.id === this.taskDetail.assigneeId);
+					this.remaningAssignee = this.users.filter((user) => user.id !== this.assigneeSelected.id);
+					this.statusSelected = this.taskStatus.find((status) => status.code === this.taskDetail.status).name;
 
-				this.previousValue = JSON.parse(JSON.stringify(this.taskDetail));
+					this.previousValue = JSON.parse(JSON.stringify(this.taskDetail));
 
-				this.taskForm.patchValue(this.taskDetail);
-			},
-			(error) => {
-				const errorTask = error[0];
-				const errorUser = error[1];
-				if (errorTask) {
-					this.snackBarService.openSnackBar('Task not found!', '', 'start', 'bottom', 'panel-error');
-					this.router.navigate(['/tasks']);
+					this.taskForm.patchValue(this.taskDetail);
+				},
+				(error) => {
+					const errorTask = error[0];
+					const errorUser = error[1];
+					if (errorTask) {
+						this.snackBarService.openSnackBar('Task not found!', '', 'start', 'bottom', 'panel-error');
+						this.router.navigate(['/tasks']);
+					}
 				}
-			}
+			)
 		);
 	}
 
@@ -112,5 +115,9 @@ export class TaskDetailComponent implements OnInit {
 
 	gotoList() {
 		this.router.navigate(['/tasks']);
+	}
+
+	ngOnDestroy(): void {
+		this.subscription.unsubscribe();
 	}
 }

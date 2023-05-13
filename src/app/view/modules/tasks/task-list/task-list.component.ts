@@ -1,20 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TasksService } from '../services/tasks.service';
 import { IParams, Task, TaskItem, User } from '../models';
 import { TASK_CONSTANT, TASK_ENUM_CODE } from '../constants';
-import { forkJoin } from 'rxjs';
+import { Subscription, forkJoin } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskDialogComponent } from '@app/shared/components/task-dialog/task-dialog.component';
 import { DIALOG_HEIGHT, DIALOG_WIDTH } from '@app/shared/constants';
-import { SnackBarService } from '@app/shared/services/snack-bar/snack-bar.service';
-import { buildTaskItem } from '@app/shared/utils/builder';
+import { SnackBarService } from '@app/shared/services';
+import { buildTaskItem } from '@app/shared/utils';
 
 @Component({
 	selector: 'app-task-list',
 	templateUrl: './task-list.component.html',
 	styleUrls: ['./task-list.component.scss'],
 })
-export class TaskListComponent implements OnInit {
+export class TaskListComponent implements OnInit, OnDestroy {
+	subscription: Subscription = new Subscription();
 	tasks: Task[];
 	users: User[];
 	preFix = TASK_CONSTANT.PREFIX;
@@ -34,34 +35,38 @@ export class TaskListComponent implements OnInit {
 		const tasks = this.taskService.getAllTasks();
 		const users = this.taskService.getAllUsers();
 
-		forkJoin([tasks, users]).subscribe(
-			(results) => {
-				this.tasks = results[0];
-				this.users = results[1];
-				this.buildTaskLogoAssignee();
-				this.tasksItem = buildTaskItem(this.tasks);
-				this.isLoading = false;
-			},
-			(error) => {
-				this.snackBarService.openSnackBar('Something was wrong!', '', 'start', 'bottom', 'panel-error');
-			}
+		this.subscription.add(
+			forkJoin([tasks, users]).subscribe(
+				(results) => {
+					this.tasks = results[0];
+					this.users = results[1];
+					this.buildTaskLogoAssignee();
+					this.tasksItem = buildTaskItem(this.tasks);
+					this.isLoading = false;
+				},
+				(error) => {
+					this.snackBarService.openSnackBar('Something was wrong!', '', 'start', 'bottom', 'panel-error');
+				}
+			)
 		);
 	}
 
 	getAllTasks(params: IParams = null) {
 		this.isLoading = true;
 		// this.tasksItem = [];
-		this.taskService.getAllTasks(params).subscribe(
-			(data: Task[]) => {
-				this.tasks = data;
-				this.buildTaskLogoAssignee();
-				this.tasksItem = buildTaskItem(this.tasks);
-				this.currentParams = params;
-				this.isLoading = false;
-			},
-			() => {
-				this.snackBarService.openSnackBar('Something was wrong!', '', 'start', 'bottom', 'panel-error');
-			}
+		this.subscription.add(
+			this.taskService.getAllTasks(params).subscribe(
+				(data: Task[]) => {
+					this.tasks = data;
+					this.buildTaskLogoAssignee();
+					this.tasksItem = buildTaskItem(this.tasks);
+					this.currentParams = params;
+					this.isLoading = false;
+				},
+				() => {
+					this.snackBarService.openSnackBar('Something was wrong!', '', 'start', 'bottom', 'panel-error');
+				}
+			)
 		);
 	}
 
@@ -133,5 +138,9 @@ export class TaskListComponent implements OnInit {
 				dialogRef.close();
 			});
 		});
+	}
+
+	ngOnDestroy(): void {
+		this.subscription.unsubscribe();
 	}
 }

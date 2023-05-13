@@ -5,7 +5,7 @@ import { FilterComponent } from './components/filter/filter.component';
 import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TaskDialogComponent } from './components/task-dialog/task-dialog.component';
-import { SnackBarService } from './services/snack-bar/snack-bar.service';
+import { SnackBarService } from './services/';
 
 @NgModule({
 	declarations: [TaskItemComponent, FilterComponent, TaskDialogComponent],
