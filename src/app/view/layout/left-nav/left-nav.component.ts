@@ -6,6 +6,20 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: ['./left-nav.component.scss'],
 })
 export class LeftNavComponent implements OnInit {
+	leftMenu = [
+		{
+			name: 'Task',
+			link: '/tasks',
+		},
+		{
+			name: 'Users',
+			link: '/users',
+		},
+		{
+			name: 'Settings',
+			link: '/settings',
+		},
+	];
 	constructor() {}
 
 	ngOnInit(): void {}

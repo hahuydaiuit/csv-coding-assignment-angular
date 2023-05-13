@@ -1,1 +1,14 @@
-<div class="left-nav"></div>
+<div class="left-nav">
+	<div class="left-nav__header flex flex-middle">
+		<div class="left-nav__header__logo circle circle-medium">A</div>
+		<div class="left-nav__header__name">Angular Jira</div>
+	</div>
+	<mat-divider></mat-divider>
+	<nav class="left-nav__menu">
+		<div *ngFor="let menu of leftMenu" routerLinkActive="is-active" class="menu-item">
+			<a [routerLink]="menu?.link" class="menu-item--a">
+				{{ menu.name }}
+			</a>
+		</div>
+	</nav>
+</div>
