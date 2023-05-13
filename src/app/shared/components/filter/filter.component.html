@@ -1,14 +1,14 @@
-<div class="filter">
+<div class="filter flex flex-middle">
 	<div class="filter__search">
 		<mat-form-field appearance="outline">
 			<mat-icon matPrefix>search</mat-icon>
 			<input matInput type="text" [(ngModel)]="searchFilter.name" (ngModelChange)="onChangeName($event)" id="id-input-filter" />
 		</mat-form-field>
 	</div>
-	<div class="filter__assignee">
+	<div class="filter__assignee flex">
 		<ng-container *ngFor="let user of users">
 			<div
-				class="filter__assignee__item"
+				class="filter__assignee__item circle circle-medium"
 				[ngStyle]="{ 'background-color': user.bgColor }"
 				(click)="selectAssignee(user.id)"
 				[ngClass]="{ selected: selectedAssigneeID.includes(user.id) }"
@@ -25,7 +25,7 @@
 		</mat-select>
 	</mat-form-field>
 
-	<div class="filter__clear" *ngIf="searchFilter?.name.length > 0">
+	<div class="filter__clear flex" *ngIf="searchFilter?.name.length > 0">
 		<div class="divider"></div>
 		<button mat-flat-button (click)="clearFilter()">Clear All</button>
 	</div>

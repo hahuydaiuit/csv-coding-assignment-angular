@@ -1,6 +1,4 @@
 .task-item {
-	display: flex;
-	flex-direction: column;
 	gap: 10px;
 	padding-bottom: 20px;
 	&__issue {
@@ -8,29 +6,18 @@
 		margin: 0 10px;
 		padding: 10px;
 		cursor: pointer;
+
 		&:hover {
 			background-color: #EBECF0;
 		}
+
 		&__name {
 			padding-bottom: 10px;
 			font-size: 16px;
 		}
+		
 		&__assignee {
-			display: flex;
-			align-items: center;
-
 			&__logo {
-				background-color: orange;
-				width: 30px;
-				height: 30px;
-				border-radius: 100%;
-				text-align: center;
-				align-items: center;
-				display: flex;
-				justify-content: center;
-				border: 1px solid white;
-				color: white;
-
 				&:hover {
 					opacity: 0.9;
 				}

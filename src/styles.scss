@@ -13,7 +13,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .flex {
     display: flex;
-    align-items: flex-start;
     &-core {
         display: flex;
     }
@@ -43,6 +42,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     }
     &-middle {
         align-items: center;
+    }
+    &-start {
+        align-items: start;
     }
     &-stretch {
         align-items: stretch;
@@ -119,6 +121,7 @@ app-left-nav {
 	display: flex;
 	justify-content: center;
 	border: 1px solid white;
+    cursor: pointer;
 	color: white;
 
 	&-small {

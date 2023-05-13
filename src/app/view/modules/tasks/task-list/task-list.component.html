@@ -1,4 +1,4 @@
-<div class="task-board">
+<div class="task-board flex flex-column">
 	<div class="task-board__title">
 		<h2>Tasks</h2>
 	</div>
@@ -11,8 +11,8 @@
 		</button>
 	</div>
 
-	<div class="task-board__content">
-		<div class="task-board__content__item">
+	<div class="task-board__content flex">
+		<div class="task-board__content__item flex flex-column">
 			<div class="task-board__content__item__status">TODO</div>
 			<app-task-item [tasks]="taskWithStatus?.todo" (openDetail)="updateTask($event)"></app-task-item>
 		</div>
