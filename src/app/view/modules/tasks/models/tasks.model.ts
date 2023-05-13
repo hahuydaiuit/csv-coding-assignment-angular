@@ -10,7 +10,7 @@ export type Task = {
 	name: string;
 	description: string;
 	assigneeId: number;
-	completed: boolean;
+	status: string;
 	logo?: string;
 	bgColor?: string;
 };
@@ -18,14 +18,11 @@ export type Task = {
 export type IParams = {
 	name: string;
 	userId: number[];
-	completed?: boolean[];
+	status?: string[];
 };
 
-export type TaskWithStatus = {
-	todo: Task[];
-	completed: Task[];
+export type TaskItem = {
+	name: string;
+	code: string;
+	tasks: Task[];
 };
-
-// export enum TASK_STATUS = {
-
-// }

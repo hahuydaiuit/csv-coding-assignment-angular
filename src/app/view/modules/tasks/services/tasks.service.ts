@@ -6,6 +6,7 @@ import { IParams, Task, User } from '../models';
 import { storedTasks, storedUsers } from '../mocks';
 import { delay, map, finalize } from 'rxjs/operators';
 import { randomDelay } from '@app/shared/utils';
+import { TASK_ENUM_CODE } from '../constants';
 
 @Injectable({
 	providedIn: 'root',
@@ -41,8 +42,8 @@ export class TasksService {
 			data = data.filter((task) => params.userId.includes(task.assigneeId));
 		}
 
-		if (params?.completed.length > 0) {
-			data = data.filter((task) => params.completed.includes(task.completed));
+		if (params?.status.length > 0) {
+			data = data.filter((task) => params.status.includes(task.status));
 		}
 		if (params?.name) {
 			data = data.filter((task) => task.name.toLowerCase().includes(params.name.toLowerCase()));
@@ -96,7 +97,7 @@ export class TasksService {
 				name: tasks.name,
 				description: tasks.description,
 				assigneeId: tasks.assigneeId,
-				completed: false,
+				status: TASK_ENUM_CODE.TODO,
 			};
 
 			this.storedTasks = this.storedTasks.concat(newTask);

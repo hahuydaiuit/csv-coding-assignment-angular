@@ -17,7 +17,7 @@ export class FilterComponent implements OnInit {
 	searchFilter: IParams = {
 		name: '',
 		userId: [],
-		completed: [],
+		status: [],
 	};
 
 	constructor() {}
@@ -30,7 +30,7 @@ export class FilterComponent implements OnInit {
 	}
 
 	onChangeStatus(event: any) {
-		this.searchFilter.completed = event;
+		this.searchFilter.status = event;
 		this.search.emit(this.searchFilter);
 	}
 
@@ -49,7 +49,7 @@ export class FilterComponent implements OnInit {
 		this.searchFilter = {
 			name: '',
 			userId: [],
-			completed: [],
+			status: [],
 		};
 		this.search.emit(this.searchFilter);
 	}

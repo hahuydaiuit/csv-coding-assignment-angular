@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TASK_STATUS } from '../constants';
+import { TASK_ENUM_CODE, TASK_STATUS } from '../constants';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { forkJoin, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -52,7 +52,7 @@ export class TaskDetailComponent implements OnInit {
 
 				this.assigneeSelected = this.users.find((user) => user.id === this.taskDetail.assigneeId);
 				this.remaningAssignee = this.users.filter((user) => user.id !== this.assigneeSelected.id);
-				this.statusSelected = this.taskStatus.find((status) => status.value === this.taskDetail.completed).name;
+				this.statusSelected = this.taskStatus.find((status) => status.code === this.taskDetail.status).name;
 
 				this.previousValue = JSON.parse(JSON.stringify(this.taskDetail));
 
@@ -75,13 +75,13 @@ export class TaskDetailComponent implements OnInit {
 			name: ['', [Validators.required]],
 			description: ['', [Validators.required]],
 			assigneeId: [null, [Validators.required]],
-			completed: [false],
+			status: [TASK_ENUM_CODE.TODO],
 		});
 	}
 
-	changeStatus(status: boolean) {
-		this.statusSelected = this.taskStatus.find((task) => task.value === status).name;
-		this.taskForm.get('completed').setValue(status);
+	changeStatus(status: string) {
+		this.statusSelected = this.taskStatus.find((task) => task.code === status).name;
+		this.taskForm.get('status').setValue(status);
 	}
 
 	changeAssignee(user: User) {

@@ -12,13 +12,9 @@
 	</div>
 
 	<div class="task-board__content flex">
-		<div class="task-board__content__item flex flex-column">
-			<div class="task-board__content__item__status">TODO</div>
-			<app-task-item [tasks]="taskWithStatus?.todo" (openDetail)="updateTask($event)"></app-task-item>
-		</div>
-		<div class="task-board__content__item">
-			<div class="task-board__content__item__status">COMPLETED</div>
-			<app-task-item [tasks]="taskWithStatus?.completed" (openDetail)="updateTask($event)"></app-task-item>
+		<div class="task-board__content__item flex flex-column" *ngFor="let taskItem of tasksItem">
+			<div class="task-board__content__item__status">{{ taskItem.name }}</div>
+			<app-task-item [tasks]="taskItem.tasks" (openDetail)="updateTask($event)"></app-task-item>
 		</div>
 	</div>
 </div>

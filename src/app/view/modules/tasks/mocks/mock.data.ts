@@ -6,21 +6,21 @@ export const storedTasks: Task[] = [
 		name: 'Install a monitor arm',
 		description: 'Install a monitor arm',
 		assigneeId: 111,
-		completed: false,
+		status: 'TD',
 	},
 	{
 		id: 1,
 		name: 'Move the desk to the new location',
 		description: 'Move the desk to the new location',
 		assigneeId: 222,
-		completed: false,
+		status: 'IP',
 	},
 	{
 		id: 2,
 		name: 'Move the desk to the new location 2',
 		description: 'Move the desk to the new location 2',
 		assigneeId: 333,
-		completed: true,
+		status: 'CP',
 	},
 ];
 

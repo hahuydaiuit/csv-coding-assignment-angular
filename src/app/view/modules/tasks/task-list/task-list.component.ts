@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { TasksService } from '../services/tasks.service';
-import { IParams, Task, TaskWithStatus, User } from '../models';
-import { TASK_CONSTANT } from '../constants';
+import { IParams, Task, TaskItem, User } from '../models';
+import { TASK_CONSTANT, TASK_ENUM_CODE } from '../constants';
 import { forkJoin } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskDialogComponent } from '@app/shared/components/task-dialog/task-dialog.component';
 import { DIALOG_HEIGHT, DIALOG_WIDTH } from '@app/shared/constants';
 import { SnackBarService } from '@app/shared/services/snack-bar/snack-bar.service';
+import { buildTaskItem } from '@app/shared/utils/builder';
 
 @Component({
 	selector: 'app-task-list',
@@ -16,12 +17,11 @@ import { SnackBarService } from '@app/shared/services/snack-bar/snack-bar.servic
 export class TaskListComponent implements OnInit {
 	tasks: Task[];
 	users: User[];
-	taskWithStatus: TaskWithStatus = {
-		todo: [],
-		completed: [],
-	};
 	preFix = TASK_CONSTANT.PREFIX;
 	currentParams = null;
+
+	tasksItem: TaskItem[] = [];
+	isLoading = false;
 
 	constructor(private taskService: TasksService, public dialog: MatDialog, private snackBarService: SnackBarService) {}
 
@@ -30,6 +30,7 @@ export class TaskListComponent implements OnInit {
 	}
 
 	init() {
+		this.isLoading = true;
 		const tasks = this.taskService.getAllTasks();
 		const users = this.taskService.getAllUsers();
 
@@ -37,10 +38,9 @@ export class TaskListComponent implements OnInit {
 			(results) => {
 				this.tasks = results[0];
 				this.users = results[1];
-				console.log(this.tasks);
-				this.buildLogoAndBg();
-				this.taskWithStatus.todo = this.tasks.filter((task) => !task.completed);
-				this.taskWithStatus.completed = this.tasks.filter((task) => task.completed);
+				this.buildTaskLogoAssignee();
+				this.tasksItem = buildTaskItem(this.tasks);
+				this.isLoading = false;
 			},
 			(error) => {
 				this.snackBarService.openSnackBar('Something was wrong!', '', 'start', 'bottom', 'panel-error');
@@ -49,13 +49,15 @@ export class TaskListComponent implements OnInit {
 	}
 
 	getAllTasks(params: IParams = null) {
+		this.isLoading = true;
+		// this.tasksItem = [];
 		this.taskService.getAllTasks(params).subscribe(
 			(data: Task[]) => {
 				this.tasks = data;
-				this.buildLogoAndBg();
-				this.taskWithStatus.todo = this.tasks.filter((task) => !task.completed);
-				this.taskWithStatus.completed = this.tasks.filter((task) => task.completed);
+				this.buildTaskLogoAssignee();
+				this.tasksItem = buildTaskItem(this.tasks);
 				this.currentParams = params;
+				this.isLoading = false;
 			},
 			() => {
 				this.snackBarService.openSnackBar('Something was wrong!', '', 'start', 'bottom', 'panel-error');
@@ -63,7 +65,7 @@ export class TaskListComponent implements OnInit {
 		);
 	}
 
-	buildLogoAndBg() {
+	buildTaskLogoAssignee() {
 		this.tasks.forEach((task) => {
 			const userAssignee = this.users.find((user) => user.id === task.assigneeId);
 			task.logo = userAssignee.logo;
@@ -88,7 +90,7 @@ export class TaskListComponent implements OnInit {
 					name: '',
 					description: '',
 					assigneeId: this.users[0].id,
-					completed: false,
+					status: TASK_ENUM_CODE.TODO,
 				},
 				config: {
 					title: 'Create new task',

@@ -31,7 +31,7 @@ export class TaskDialogComponent implements OnInit {
 	ngOnInit(): void {
 		this.assigneeSelected = this.data.users.find((user) => user.id === this.data.task.assigneeId);
 		this.remaningAssignee = this.data.users.filter((user) => user.id !== this.assigneeSelected.id);
-		this.statusSelected = this.taskStatus.find((status) => status.value === this.data.task.completed).name;
+		this.statusSelected = this.taskStatus.find((status) => status.code === this.data.task.status).name;
 
 		this.previousValue = JSON.parse(JSON.stringify(this.data.task));
 		this.initForm();
@@ -43,7 +43,7 @@ export class TaskDialogComponent implements OnInit {
 			name: [this.data.task.name, [Validators.required]],
 			description: [this.data.task.description, [Validators.required]],
 			assigneeId: [this.data.task.assigneeId, [Validators.required]],
-			completed: [this.data.task.completed],
+			status: [this.data.task.status],
 		});
 	}
 
@@ -54,9 +54,9 @@ export class TaskDialogComponent implements OnInit {
 		this.taskForm.get('assigneeId').setValue(this.assigneeSelected.id);
 	}
 
-	changeStatus(status: boolean) {
-		this.statusSelected = this.taskStatus.find((task) => task.value === status).name;
-		this.taskForm.get('completed').setValue(status);
+	changeStatus(status: string) {
+		this.statusSelected = this.taskStatus.find((task) => task.code === status).name;
+		this.taskForm.get('status').setValue(status);
 	}
 
 	onSave() {

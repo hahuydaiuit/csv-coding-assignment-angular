@@ -48,7 +48,7 @@
 							</div>
 						</button>
 						<mat-menu #menuStatus="matMenu">
-							<button mat-menu-item *ngFor="let status of taskStatus" (click)="changeStatus(status.value)">
+							<button mat-menu-item *ngFor="let status of taskStatus" (click)="changeStatus(status.code)">
 								<div class="flex flex-middle w-full">
 									<span>{{ status.name }}</span>
 								</div>
