@@ -1,4 +1,8 @@
 .task-board {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 40px);
+    padding: 20px;
     &__filter {
         display: flex;
         flex-direction: row;
@@ -48,6 +52,8 @@
     &__content {
         display: flex;
         margin-top: 20px;
+        flex-grow: 1;
+        padding-bottom: 60px;
         &__item {
             width: calc(25% - 8px);
             min-height: 400px;

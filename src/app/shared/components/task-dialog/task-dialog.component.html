@@ -1,6 +1,8 @@
 <div class="dialog flex flex-column h-full w-full" [formGroup]="taskForm">
 	<div class="dialog__header flex flex-space-between w-full">
-		<div mat-dialog-title>{{ data.config.title }}</div>
+		<div mat-dialog-title id="id-dialog-title">
+			<span>{{ data.config.title }}</span>
+		</div>
 		<div>
 			<button mat-icon-button aria-label="Open full" mat-dialog-close (click)="gotoDetail()" *ngIf="data.config.isEdit">
 				<mat-icon>open_in_full</mat-icon>

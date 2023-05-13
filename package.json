@@ -22,7 +22,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "test": "ng test --browsers=Chrome --include src/app/view/modules/tasks/task-list/task-list.component.spec.ts",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

@@ -23,7 +23,7 @@ export class TaskListComponent implements OnInit {
 	preFix = TASK_CONSTANT.PREFIX;
 	currentParams = null;
 
-	constructor(private taskService: TasksService, private readonly dialog: MatDialog, private snackBarService: SnackBarService) {}
+	constructor(private taskService: TasksService, public dialog: MatDialog, private snackBarService: SnackBarService) {}
 
 	ngOnInit(): void {
 		this.init();
@@ -37,6 +37,7 @@ export class TaskListComponent implements OnInit {
 			(results) => {
 				this.tasks = results[0];
 				this.users = results[1];
+				console.log(this.tasks);
 				this.buildLogoAndBg();
 				this.taskWithStatus.todo = this.tasks.filter((task) => !task.completed);
 				this.taskWithStatus.completed = this.tasks.filter((task) => task.completed);

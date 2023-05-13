@@ -5,7 +5,7 @@
 
 	<div class="flex flex-middle flex-space-between">
 		<app-filter [users]="users" (search)="onSearch($event)"></app-filter>
-		<button mat-raised-button color="primary" aria-label="Add new task" (click)="addNewTask()">
+		<button mat-raised-button color="primary" aria-label="Add new task" (click)="addNewTask()" id="id-button-add">
 			<mat-icon>add</mat-icon>
 			Add new task
 		</button>
