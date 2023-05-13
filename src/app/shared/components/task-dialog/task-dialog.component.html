@@ -29,7 +29,7 @@
 						<div class="task-form__field__label">Description</div>
 						<mat-form-field appearance="outline" class="w-full">
 							<textarea matInput formControlName="description" rows="4"></textarea>
-							<mat-error *ngIf="taskForm?.get('description')?.errors?.required"> Name is required </mat-error>
+							<mat-error *ngIf="taskForm?.get('description')?.errors?.required"> Description is required </mat-error>
 						</mat-form-field>
 					</div>
 				</div>
