@@ -12,6 +12,9 @@
 				[ngStyle]="{ 'background-color': user.bgColor }"
 				(click)="selectAssignee(user.id)"
 				[ngClass]="{ selected: selectedAssigneeID.includes(user.id) }"
+				#tooltip="matTooltip"
+				[matTooltip]="user.name"
+				matTooltipPosition="below"
 			>
 				<span>{{ user.logo }}</span>
 			</div>

@@ -40,7 +40,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
 				(results) => {
 					this.tasks = results[0];
 					this.users = results[1];
-					this.buildTaskLogoAssignee();
+					this.buildTaskAssignee();
 					this.tasksItem = buildTaskItem(this.tasks);
 					this.isLoading = false;
 				},
@@ -58,7 +58,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
 			this.taskService.getAllTasks(params).subscribe(
 				(data: Task[]) => {
 					this.tasks = data;
-					this.buildTaskLogoAssignee();
+					this.buildTaskAssignee();
 					this.tasksItem = buildTaskItem(this.tasks);
 					this.currentParams = params;
 					this.isLoading = false;
@@ -70,11 +70,12 @@ export class TaskListComponent implements OnInit, OnDestroy {
 		);
 	}
 
-	buildTaskLogoAssignee() {
+	buildTaskAssignee() {
 		this.tasks.forEach((task) => {
 			const userAssignee = this.users.find((user) => user.id === task.assigneeId);
 			task.logo = userAssignee.logo;
 			task.bgColor = userAssignee.bgColor;
+			task.assigneeName = userAssignee.name;
 		});
 	}
 

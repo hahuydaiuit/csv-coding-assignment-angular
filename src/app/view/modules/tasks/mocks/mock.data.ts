@@ -22,6 +22,20 @@ export const storedTasks: Task[] = [
 		assigneeId: 333,
 		status: 'CP',
 	},
+	{
+		id: 3,
+		name: 'Move the desk to the new location 2',
+		description: 'Move the desk to the new location 2',
+		assigneeId: 222,
+		status: 'TD',
+	},
+	{
+		id: 4,
+		name: 'Move the desk to the new location 2',
+		description: 'Move the desk to the new location 2',
+		assigneeId: 333,
+		status: 'TD',
+	},
 ];
 
 export const storedUsers: User[] = [

@@ -9,7 +9,7 @@ export const buildTaskItem = (tasks: Task[]) => {
 			tasks: [],
 		},
 		{
-			name: 'In-Progress',
+			name: 'In Progress',
 			code: TASK_ENUM_CODE.INPROGRESS,
 			tasks: [],
 		},

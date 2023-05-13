@@ -110,6 +110,7 @@ export class TaskDetailComponent implements OnInit, OnDestroy {
 	hasChangeData() {
 		delete this.previousValue.logo;
 		delete this.previousValue.bgColor;
+		delete this.previousValue.assigneeName;
 		return JSON.stringify(this.previousValue) === JSON.stringify(this.taskForm.value);
 	}
 

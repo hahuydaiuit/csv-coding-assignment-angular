@@ -14,7 +14,7 @@ import { TASK_ENUM_CODE } from '../constants';
 export class TasksService {
 	storedTasks = storedTasks;
 	storedUsers = storedUsers;
-	lastId = 2;
+	lastId = 4;
 
 	constructor(private requestService: RequestService, public loadingService: LoadingService) {}
 

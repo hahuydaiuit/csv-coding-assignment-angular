@@ -4,7 +4,13 @@
 			{{ task.name }}
 		</div>
 		<div class="task-item__issue__assignee flex flex-middle">
-			<div class="task-item__issue__assignee__logo circle circle-small" [ngStyle]="{ 'background-color': task.bgColor }">
+			<div
+				class="task-item__issue__assignee__logo circle circle-small"
+				[ngStyle]="{ 'background-color': task.bgColor }"
+				#tooltip="matTooltip"
+				[matTooltip]="task.assigneeName"
+				matTooltipPosition="below"
+			>
 				{{ task.logo }}
 			</div>
 			<div class="task-item__issue__assignee__name">{{ preFix }}{{ task.id }}</div>

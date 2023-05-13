@@ -13,6 +13,7 @@ export type Task = {
 	status: string;
 	logo?: string;
 	bgColor?: string;
+	assigneeName?: string;
 };
 
 export type IParams = {

@@ -66,6 +66,7 @@ export class TaskDialogComponent implements OnInit {
 	hasChangeData() {
 		delete this.previousValue.logo;
 		delete this.previousValue.bgColor;
+		delete this.previousValue.assigneeName;
 		return this.data.config.isEdit && JSON.stringify(this.previousValue) === JSON.stringify(this.taskForm.value);
 	}
 

@@ -14,7 +14,7 @@ export const TASK_STATUS = [
 		code: 'TD',
 	},
 	{
-		name: 'In-Progress',
+		name: 'In Progress',
 		code: 'IP',
 	},
 	{
