@@ -2,6 +2,7 @@
 	<div class="dialog__header flex flex-space-between w-full">
 		<div mat-dialog-title id="id-dialog-title">
 			<span>{{ data.config.title }}</span>
+			<span *ngIf="data.config.isEdit"> - {{ preFix }}{{ data.task.id }}</span>
 		</div>
 		<div>
 			<button mat-icon-button aria-label="Open full" mat-dialog-close (click)="gotoDetail()" *ngIf="data.config.isEdit">

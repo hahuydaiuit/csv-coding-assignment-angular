@@ -126,7 +126,7 @@ export class TaskListComponent implements OnInit {
 
 		dialogRef.componentInstance.onSaveTaskEmitter.subscribe((data) => {
 			this.taskService.updateTask(data).subscribe((task) => {
-				this.snackBarService.openSnackBar('Update successful', '', 'start', 'bottom', 'panel-sucess');
+				this.snackBarService.openSnackBar(`Update ${task.name} successful`, '', 'start', 'bottom', 'panel-sucess');
 				this.getAllTasks(this.currentParams);
 				dialogRef.close();
 			});

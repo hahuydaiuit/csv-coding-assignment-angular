@@ -14,8 +14,9 @@
 		&__name {
 			padding-bottom: 10px;
 			font-size: 16px;
+			word-break: break-all;
 		}
-		
+
 		&__assignee {
 			&__logo {
 				&:hover {

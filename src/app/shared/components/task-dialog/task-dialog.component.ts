@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, EventEmitter } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { TASK_STATUS } from '@app/view/modules/tasks/constants';
+import { TASK_CONSTANT, TASK_STATUS } from '@app/view/modules/tasks/constants';
 import { Task, User } from '@app/view/modules/tasks/models';
 
 @Component({
@@ -14,6 +14,7 @@ export class TaskDialogComponent implements OnInit {
 	onSaveTaskEmitter = new EventEmitter();
 	taskStatus = TASK_STATUS;
 	previousValue!: Task;
+	preFix = TASK_CONSTANT.PREFIX;
 
 	constructor(
 		public dialogRef: MatDialogRef<TaskDialogComponent>,
