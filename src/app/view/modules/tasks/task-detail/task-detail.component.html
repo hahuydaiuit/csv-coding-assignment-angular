@@ -1,7 +1,5 @@
 <div class="task-detail" [formGroup]="taskForm">
-	<div class="task-detail__title">
-		<h2>Tasks Detail</h2>
-	</div>
+	<h2>Tasks Detail</h2>
 	<div class="task-detail__content">
 		<div class="task-form flex flex-space-between w-50-p">
 			<div class="task-form__left">
@@ -30,7 +28,7 @@
 						</div>
 					</button>
 					<mat-menu #menuStatus="matMenu">
-						<button mat-menu-item *ngFor="let status of taskStatus" (click)="changeStatus(status.code)">
+						<button mat-menu-item *ngFor="let status of remaingStatus" (click)="changeStatus(status.code)">
 							<div class="flex flex-middle w-full">
 								<span>{{ status.name }}</span>
 							</div>

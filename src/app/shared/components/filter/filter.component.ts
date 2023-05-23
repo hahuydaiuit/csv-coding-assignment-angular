@@ -12,7 +12,7 @@ export class FilterComponent implements OnInit {
 	@Output() search = new EventEmitter();
 	selectedAssigneeID = [];
 
-	taskStatus = TASK_STATUS;
+	taskStatus = JSON.parse(JSON.stringify(TASK_STATUS));
 
 	searchFilter: IParams = {
 		name: '',
@@ -51,6 +51,7 @@ export class FilterComponent implements OnInit {
 			userId: [],
 			status: [],
 		};
+		this.selectedAssigneeID = [];
 		this.search.emit(this.searchFilter);
 	}
 }

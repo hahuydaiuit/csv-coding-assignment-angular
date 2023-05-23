@@ -8,6 +8,7 @@ import { TaskDialogComponent } from '@app/shared/components/task-dialog/task-dia
 import { DIALOG_HEIGHT, DIALOG_WIDTH } from '@app/shared/constants';
 import { SnackBarService } from '@app/shared/services';
 import { buildTaskItem } from '@app/shared/utils';
+import { UserService } from '../../users/services/user.service';
 
 @Component({
 	selector: 'app-task-list',
@@ -24,7 +25,12 @@ export class TaskListComponent implements OnInit, OnDestroy {
 	tasksItem: TaskItem[] = [];
 	isLoading = false;
 
-	constructor(private taskService: TasksService, public dialog: MatDialog, private snackBarService: SnackBarService) {}
+	constructor(
+		private taskService: TasksService,
+		public dialog: MatDialog,
+		private snackBarService: SnackBarService,
+		private userService: UserService
+	) {}
 
 	ngOnInit(): void {
 		this.init();
@@ -33,7 +39,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
 	init() {
 		this.isLoading = true;
 		const tasks = this.taskService.getAllTasks();
-		const users = this.taskService.getAllUsers();
+		const users = this.userService.getAllUsers();
 
 		this.subscription.add(
 			forkJoin([tasks, users]).subscribe(
@@ -50,6 +56,12 @@ export class TaskListComponent implements OnInit, OnDestroy {
 			)
 		);
 	}
+
+	// getAllUser() {
+	// 	this.userService.getAllUser().subscribe((users: User[]) => {
+	// 		this.users = users;
+	// 	});
+	// }
 
 	getAllTasks(params: IParams = null) {
 		this.isLoading = true;
@@ -84,6 +96,9 @@ export class TaskListComponent implements OnInit, OnDestroy {
 	}
 
 	addNewTask() {
+		// this.userService.getAllUser().subscribe((users: User[]) => {
+		// 	this.users = users;
+
 		const dialogRef = this.dialog.open(TaskDialogComponent, {
 			width: DIALOG_WIDTH.LARGE,
 			height: DIALOG_HEIGHT.LARGE,
@@ -113,6 +128,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
 				dialogRef.close();
 			});
 		});
+		// });
 	}
 
 	updateTask(task: Task) {

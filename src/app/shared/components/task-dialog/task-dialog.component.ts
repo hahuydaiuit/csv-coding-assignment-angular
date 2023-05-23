@@ -3,7 +3,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TASK_CONSTANT, TASK_STATUS } from '@app/view/modules/tasks/constants';
-import { Task, User } from '@app/view/modules/tasks/models';
+import { Task, TaskItem, User } from '@app/view/modules/tasks/models';
 
 @Component({
 	selector: 'app-task-dialog',
@@ -12,7 +12,7 @@ import { Task, User } from '@app/view/modules/tasks/models';
 })
 export class TaskDialogComponent implements OnInit {
 	onSaveTaskEmitter = new EventEmitter();
-	taskStatus = TASK_STATUS;
+	taskStatus = JSON.parse(JSON.stringify(TASK_STATUS));
 	previousValue!: Task;
 	preFix = TASK_CONSTANT.PREFIX;
 
@@ -27,14 +27,20 @@ export class TaskDialogComponent implements OnInit {
 	assigneeSelected!: User;
 	remaningAssignee!: User[];
 	statusSelected: string;
+	remaingStatus!: TaskItem[];
 
 	ngOnInit(): void {
+		this.initValue();
+		this.initForm();
+	}
+
+	initValue() {
 		this.assigneeSelected = this.data.users.find((user) => user.id === this.data.task.assigneeId);
 		this.remaningAssignee = this.data.users.filter((user) => user.id !== this.assigneeSelected.id);
 		this.statusSelected = this.taskStatus.find((status) => status.code === this.data.task.status).name;
+		this.remaingStatus = this.taskStatus.filter((status) => status.code !== this.data.task.status);
 
 		this.previousValue = JSON.parse(JSON.stringify(this.data.task));
-		this.initForm();
 	}
 
 	initForm() {
@@ -56,6 +62,7 @@ export class TaskDialogComponent implements OnInit {
 
 	changeStatus(status: string) {
 		this.statusSelected = this.taskStatus.find((task) => task.code === status).name;
+		this.remaingStatus = this.taskStatus.filter((task) => task.code !== status);
 		this.taskForm.get('status').setValue(status);
 	}
 
@@ -71,6 +78,6 @@ export class TaskDialogComponent implements OnInit {
 	}
 
 	gotoDetail() {
-		this.router.navigate([`/tasks/detail/${this.data.task.id}`]);
+		this.router.navigate([`/tasks/detail/${this.preFix}${this.data.task.id}`]);
 	}
 }

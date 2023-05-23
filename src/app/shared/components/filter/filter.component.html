@@ -28,7 +28,10 @@
 		</mat-select>
 	</mat-form-field>
 
-	<div class="filter__clear flex" *ngIf="searchFilter?.name.length > 0">
+	<div
+		class="filter__clear flex"
+		*ngIf="searchFilter?.name.length > 0 || searchFilter.userId.length > 0 || searchFilter.status.length > 0"
+	>
 		<div class="divider"></div>
 		<button mat-flat-button (click)="clearFilter()">Clear All</button>
 	</div>
