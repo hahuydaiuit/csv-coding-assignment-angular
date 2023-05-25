@@ -1,0 +1,18 @@
+<div class="task-board flex flex-column">
+	<h2>Tasks</h2>
+
+	<div class="flex flex-middle flex-space-between">
+		<app-filter [users]="users" (search)="onSearch($event)"></app-filter>
+		<button mat-raised-button color="primary" aria-label="Add new task" (click)="addNewTask()" id="id-button-add">
+			<mat-icon>add</mat-icon>
+			Add new task
+		</button>
+	</div>
+
+	<div class="task-board__content flex">
+		<div class="task-board__content__item flex flex-column" *ngFor="let taskItem of tasksItem">
+			<div class="task-board__content__item__status">{{ taskItem.name }}</div>
+			<app-task-item [tasks]="taskItem.tasks" (openDetail)="updateTask($event)"></app-task-item>
+		</div>
+	</div>
+</div>

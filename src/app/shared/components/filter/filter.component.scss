@@ -1,0 +1,32 @@
+.filter {
+	gap: 20px;
+
+	&__assignee {
+		&__item {
+			&:hover {
+				transform: scale(1.1);
+			}
+		}
+
+		.selected {
+			border: 2px solid green;
+		}
+	}
+
+	&__clear {
+		gap: 20px;
+		
+		.divider {
+			width: 1px;
+			border-left: 1px solid #ccc;
+		}
+		button {
+			background-color: #F4F5F7;
+			color: black;
+
+			&:hover {
+				background-color: #EBECF0;
+			}
+		}
+	}
+}

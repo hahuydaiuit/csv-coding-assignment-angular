@@ -1,0 +1,64 @@
+<div class="task-detail" [formGroup]="taskForm">
+	<h2>Tasks Detail</h2>
+	<div class="task-detail__content">
+		<div class="task-form flex flex-space-between w-50-p">
+			<div class="task-form__left">
+				<div class="task-form__field task-form__left__name">
+					<div class="task-form__field__label">Name</div>
+					<mat-form-field appearance="outline" class="w-full">
+						<input matInput formControlName="name" />
+						<mat-error *ngIf="taskForm?.get('name')?.errors?.required"> Name is required </mat-error>
+					</mat-form-field>
+				</div>
+
+				<div class="task-form__field task-form__left__description">
+					<div class="task-form__field__label">Description</div>
+					<mat-form-field appearance="outline" class="w-full">
+						<textarea matInput formControlName="description" rows="4"></textarea>
+						<mat-error *ngIf="taskForm?.get('description')?.errors?.required"> Description is required </mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+			<div class="task-form__right">
+				<div class="task-form__field flex flex-column">
+					<div class="task-form__field__label">Status</div>
+					<button mat-stroked-button [matMenuTriggerFor]="menuStatus" aria-label="Status" class="w-full">
+						<div class="flex flex-middle w-full">
+							{{ statusSelected }}
+						</div>
+					</button>
+					<mat-menu #menuStatus="matMenu">
+						<button mat-menu-item *ngFor="let status of remaingStatus" (click)="changeStatus(status.code)">
+							<div class="flex flex-middle w-full">
+								<span>{{ status.name }}</span>
+							</div>
+						</button>
+					</mat-menu>
+				</div>
+				<div class="task-form__field flex flex-column">
+					<div class="task-form__field__label">Assignee</div>
+					<button mat-stroked-button [matMenuTriggerFor]="menu" aria-label="Assignee" class="w-full">
+						<div class="flex flex-middle w-full">
+							<div class="circle circle-small" [ngStyle]="{ 'background-color': assigneeSelected?.bgColor }">
+								{{ assigneeSelected?.logo }}
+							</div>
+							<span class="p-l-sm">{{ assigneeSelected?.name }}</span>
+						</div>
+					</button>
+					<mat-menu #menu="matMenu">
+						<button mat-menu-item *ngFor="let user of remaningAssignee" (click)="changeAssignee(user)">
+							<div class="flex flex-middle w-full">
+								<div class="circle circle-small" [ngStyle]="{ 'background-color': user.bgColor }">{{ user.logo }}</div>
+								<span class="p-l-sm">{{ user.name }}</span>
+							</div>
+						</button>
+					</mat-menu>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="task-detail__action w-50-p flex flex-end">
+		<button mat-button (click)="gotoList()">Cancel</button>
+		<button mat-button mat-flat-button color="primary" [disabled]="taskForm.invalid || hasChangeData()" (click)="onSave()">Save</button>
+	</div>
+</div>

@@ -1,0 +1,90 @@
+<div class="dialog flex flex-column h-full w-full" [formGroup]="taskForm">
+	<div class="dialog__header flex flex-space-between w-full">
+		<div mat-dialog-title id="id-dialog-title">
+			<span>{{ data.config.title }}</span>
+			<span *ngIf="data.config.isEdit"> - {{ preFix }}{{ data.task.id }}</span>
+		</div>
+		<div>
+			<button mat-icon-button aria-label="Open full" mat-dialog-close (click)="gotoDetail()" *ngIf="data.config.isEdit">
+				<mat-icon>open_in_full</mat-icon>
+			</button>
+			<button mat-icon-button aria-label="Close dialog" mat-dialog-close>
+				<mat-icon>close</mat-icon>
+			</button>
+		</div>
+	</div>
+	<div class="dialog__content w-full">
+		<mat-dialog-content>
+			<div class="task-form flex flex-space-between">
+				<div class="task-form__left">
+					<div class="task-form__field task-form__left__name">
+						<div class="task-form__field__label">Name</div>
+						<mat-form-field appearance="outline" class="w-full">
+							<input matInput formControlName="name" />
+							<mat-error *ngIf="taskForm?.get('name')?.errors?.required"> Name is required </mat-error>
+						</mat-form-field>
+					</div>
+
+					<div class="task-form__field task-form__left__description">
+						<div class="task-form__field__label">Description</div>
+						<mat-form-field appearance="outline" class="w-full">
+							<textarea matInput formControlName="description" rows="4"></textarea>
+							<mat-error *ngIf="taskForm?.get('description')?.errors?.required"> Description is required </mat-error>
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="task-form__right">
+					<div class="task-form__field flex flex-column">
+						<div class="task-form__field__label">Status</div>
+						<button
+							mat-stroked-button
+							[matMenuTriggerFor]="menuStatus"
+							aria-label="Status"
+							class="w-full"
+							[disabled]="!data.config.isEdit"
+						>
+							<div class="flex flex-middle w-full">
+								{{ statusSelected }}
+							</div>
+						</button>
+						<mat-menu #menuStatus="matMenu">
+							<button mat-menu-item *ngFor="let status of remaingStatus" (click)="changeStatus(status.code)">
+								<div class="flex flex-middle w-full">
+									<span>{{ status.name }}</span>
+								</div>
+							</button>
+						</mat-menu>
+					</div>
+					<div class="task-form__field flex flex-column">
+						<div class="task-form__field__label">Assignee</div>
+						<button mat-stroked-button [matMenuTriggerFor]="menu" aria-label="Assignee" class="w-full">
+							<div class="flex flex-middle w-full">
+								<div class="circle circle-small" [ngStyle]="{ 'background-color': assigneeSelected.bgColor }">
+									{{ assigneeSelected.logo }}
+								</div>
+								<span class="p-l-sm">{{ assigneeSelected.name }}</span>
+							</div>
+						</button>
+						<mat-menu #menu="matMenu">
+							<button mat-menu-item *ngFor="let user of remaningAssignee" (click)="changeAssignee(user)">
+								<div class="flex flex-middle w-full">
+									<div class="circle circle-small" [ngStyle]="{ 'background-color': user.bgColor }">{{ user.logo }}</div>
+									<span class="p-l-sm">{{ user.name }}</span>
+								</div>
+							</button>
+						</mat-menu>
+					</div>
+				</div>
+			</div>
+		</mat-dialog-content>
+	</div>
+
+	<div class="dialog__footer w-full">
+		<mat-dialog-actions class="flex flex-end">
+			<button mat-button mat-dialog-close>Cancel</button>
+			<button mat-button mat-flat-button color="primary" [disabled]="taskForm.invalid || hasChangeData()" (click)="onSave()">
+				{{ data.config.buttonLbl }}
+			</button>
+		</mat-dialog-actions>
+	</div>
+</div>

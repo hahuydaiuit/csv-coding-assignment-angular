@@ -1,0 +1,19 @@
+.task-detail {
+    .task-form {
+        gap: 20px;
+        &__left {
+            width: 70%;
+        }
+    
+        &__right {
+            width: 30%;
+        }
+    
+        &__field {
+            margin-bottom: 20px;
+            &__label {
+                margin-bottom: 5px;
+            }
+        }
+    }
+}

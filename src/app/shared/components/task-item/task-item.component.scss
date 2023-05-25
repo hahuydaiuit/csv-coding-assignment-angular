@@ -1,0 +1,31 @@
+.task-item {
+	gap: 10px;
+	padding-bottom: 20px;
+	&__issue {
+		background-color: white;
+		margin: 0 10px;
+		padding: 10px;
+		cursor: pointer;
+
+		&:hover {
+			background-color: #EBECF0;
+		}
+
+		&__name {
+			padding-bottom: 10px;
+			font-size: 16px;
+			word-break: break-all;
+		}
+
+		&__assignee {
+			&__logo {
+				&:hover {
+					opacity: 0.9;
+				}
+			}
+			&__name {
+				padding-left: 10px;
+			}
+		}
+	}
+}

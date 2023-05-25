@@ -1,0 +1,53 @@
+.left-nav {
+	min-width: 200px;
+	height: 100%;
+	background-color: #F4F5F7;
+	&__header {
+		padding-top: 20px;
+		padding-left: 15px;
+		padding-bottom: 15px;
+
+		&__logo {
+			background-color: red;
+		}
+	
+		&__name {
+			padding-left: 10px;
+		}
+	}
+
+	&__menu {
+		padding-top:10px;
+	}
+	.is-active {
+		background-color: #d2d8e4;
+		a {
+			font-weight: 500;
+		}
+	}
+
+	.menu-item {
+		padding: 10px 20px;
+		margin-bottom: 5px;
+		cursor: pointer;
+		a {
+			text-decoration: none;
+			color: black;
+			width: 100%;
+			display: block;
+		}
+
+		&.is-active {
+			&:hover {
+				background-color: #cfd4e0;
+			}
+		}
+
+		&:not(.is-active) {
+			&:hover {
+				background-color: #cdd2db;
+			}
+		}
+	}
+
+}
